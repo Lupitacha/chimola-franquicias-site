@@ -1,0 +1,60 @@
+{
+  "weights": {
+    "plazaStatus": {
+      "local_identificado": 25,
+      "plaza_definida": 16,
+      "evaluando": 6
+    },
+    "timing": {
+      "0_3": 20,
+      "3_6": 15,
+      "6_12": 8,
+      "12_plus": 2
+    },
+    "capitalRange": {
+      "ready": 20,
+      "estimated": 15,
+      "needs_review": 7,
+      "exploratory": 2
+    },
+    "retailExperience": {
+      "multi_local": 15,
+      "single_local": 10,
+      "category_experience": 5,
+      "none": 0
+    },
+    "role": {
+      "operativo": 10,
+      "mixto": 6,
+      "pasivo": 0
+    },
+    "locationType": {
+      "shopping": 5,
+      "street_premium": 4,
+      "strip_center": 3,
+      "to_define": 1
+    }
+  },
+  "squareMeters": [
+    {
+      "min": 70,
+      "max": 120,
+      "score": 5
+    },
+    {
+      "min": 60,
+      "max": 69,
+      "score": 3
+    },
+    {
+      "min": 121,
+      "max": 180,
+      "score": 3
+    }
+  ],
+  "sql": {
+    "minimumScore": 75,
+    "plazaStatus": ["local_identificado", "plaza_definida"],
+    "timing": ["0_3", "3_6"]
+  }
+}

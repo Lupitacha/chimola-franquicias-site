@@ -1,0 +1,703 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+import { computeLeadScore, computeSqlFlag } from "@/lib/scoring";
+import { trackLeadEvent } from "@/lib/tracking";
+
+const formType = "evaluar_mi_plaza_stepper";
+const slaHours = 24;
+const whatsappNumber = "5491144090974";
+const schedulerUrl =
+  process.env.NEXT_PUBLIC_SCHEDULER_URL || "https://example.com/agendar-llamada";
+
+const plazaOptions = [
+  { value: "", label: "Seleccionar" },
+  { value: "local_identificado", label: "Tengo local identificado" },
+  { value: "plaza_definida", label: "Tengo plaza definida, local en búsqueda" },
+  { value: "evaluando", label: "Estoy evaluando plaza" },
+];
+
+const timingOptions = [
+  { value: "", label: "Seleccionar" },
+  { value: "0_3", label: "0 a 3 meses" },
+  { value: "3_6", label: "3 a 6 meses" },
+  { value: "6_12", label: "6 a 12 meses" },
+  { value: "12_plus", label: "Más de 12 meses" },
+];
+
+const capitalOptions = [
+  { value: "", label: "Seleccionar" },
+  { value: "ready", label: "Capital asignado para apertura y stock inicial" },
+  { value: "estimated", label: "Capital disponible, con variables por cerrar" },
+  { value: "needs_review", label: "Necesito estructurar parte de la inversión" },
+  { value: "exploratory", label: "Estoy explorando sin capital asignado" },
+];
+
+const experienceOptions = [
+  { value: "", label: "Seleccionar" },
+  { value: "multi_local", label: "Opero varios locales o franquicias" },
+  { value: "single_local", label: "Opero un local o emprendimiento retail" },
+  { value: "category_experience", label: "Tengo experiencia comercial en otra categoría" },
+  { value: "none", label: "No tengo experiencia operando retail" },
+];
+
+const roleOptions = [
+  { value: "", label: "Seleccionar" },
+  { value: "operativo", label: "Operativo" },
+  { value: "mixto", label: "Mixto" },
+  { value: "pasivo", label: "Pasivo" },
+];
+
+const locationOptions = [
+  { value: "", label: "Seleccionar" },
+  { value: "shopping", label: "Shopping" },
+  { value: "street_premium", label: "Avenida o calle comercial principal" },
+  { value: "strip_center", label: "Strip center o corredor barrial" },
+  { value: "to_define", label: "Todavía a definir" },
+];
+
+const labels = {
+  plazaStatus: Object.fromEntries(plazaOptions.map((option) => [option.value, option.label])),
+  timing: Object.fromEntries(timingOptions.map((option) => [option.value, option.label])),
+  capitalRange: Object.fromEntries(capitalOptions.map((option) => [option.value, option.label])),
+};
+
+const initialValues = {
+  name: "",
+  whatsapp: "",
+  cityProvince: "",
+  plazaStatus: "",
+  timing: "",
+  capitalRange: "",
+  consent: false,
+  retailExperience: "",
+  role: "",
+  locationType: "",
+  squareMeters: "",
+  motivation: "",
+};
+
+function validateStepOne(values) {
+  const errors = {};
+
+  if (!values.name.trim()) errors.name = "Completá tu nombre.";
+  if (!values.whatsapp.trim()) errors.whatsapp = "Completá tu WhatsApp.";
+  if (!values.cityProvince.trim()) errors.cityProvince = "Indicá ciudad y provincia.";
+  if (!values.plazaStatus) errors.plazaStatus = "Elegí el estado de tu plaza.";
+  if (!values.timing) errors.timing = "Seleccioná tu timing.";
+  if (!values.capitalRange) errors.capitalRange = "Seleccioná un rango de capital.";
+  if (!values.consent) {
+    errors.consent = "Necesitamos tu consentimiento para procesar la evaluación.";
+  }
+
+  return errors;
+}
+
+function validateStepTwo(values) {
+  const errors = {};
+
+  if (!values.retailExperience) {
+    errors.retailExperience = "Seleccioná tu experiencia en retail.";
+  }
+
+  if (!values.role) errors.role = "Indicá tu rol en el proyecto.";
+  if (!values.locationType) {
+    errors.locationType = "Seleccioná el tipo de ubicación.";
+  }
+  if (!values.motivation.trim()) {
+    errors.motivation = "Contanos brevemente por qué te interesa Chimola.";
+  }
+
+  return errors;
+}
+
+function buildWhatsappUrl(values, score, isSql) {
+  const message = [
+    "Hola, acabo de completar la evaluación de plaza de Chimola.",
+    `Ciudad/plaza: ${values.cityProvince}`,
+    `Estado de plaza: ${labels.plazaStatus[values.plazaStatus]}`,
+    `Timing: ${labels.timing[values.timing]}`,
+    `Capital: ${labels.capitalRange[values.capitalRange]}`,
+    `Score preliminar: ${score}/100`,
+    `SQL: ${isSql ? "Sí" : "No"}`,
+  ].join("\n");
+
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+function FieldError({ message }) {
+  if (!message) {
+    return null;
+  }
+
+  return <p className="field-error">{message}</p>;
+}
+
+export function QualificationStepper() {
+  const [step, setStep] = useState(1);
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasTrackedBeginQuiz, setHasTrackedBeginQuiz] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const progressValue = result ? 100 : step === 1 ? 50 : 100;
+
+  function markQuizStarted() {
+    if (hasTrackedBeginQuiz) {
+      return;
+    }
+
+    trackLeadEvent("begin_quiz", { form_type: formType });
+    setHasTrackedBeginQuiz(true);
+  }
+
+  function updateValue(name, value) {
+    setValues((currentValues) => ({
+      ...currentValues,
+      [name]: value,
+    }));
+
+    setErrors((currentErrors) => ({
+      ...currentErrors,
+      [name]: "",
+    }));
+  }
+
+  function handleNextStep() {
+    markQuizStarted();
+    const nextErrors = validateStepOne(values);
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length === 0) {
+      setStep(2);
+    }
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    markQuizStarted();
+
+    const nextErrors = {
+      ...validateStepOne(values),
+      ...validateStepTwo(values),
+    };
+
+    setErrors(nextErrors);
+    setSubmitError("");
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    const { score, breakdown } = computeLeadScore(values);
+    const isSql = computeSqlFlag(values, score);
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/evaluate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...values,
+          score,
+          scoreBreakdown: breakdown,
+          isSql,
+          formType,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "No se pudo enviar la evaluación.");
+      }
+
+      trackLeadEvent("generate_lead", {
+        form_type: formType,
+        plaza_status: values.plazaStatus,
+        timing: values.timing,
+        capital_range: values.capitalRange,
+        score,
+        is_sql: isSql,
+      });
+
+      setResult({
+        message: data.message,
+        score,
+        isSql,
+        whatsappUrl: buildWhatsappUrl(values, score, isSql),
+        summary: {
+          cityProvince: values.cityProvince,
+          plazaStatus: labels.plazaStatus[values.plazaStatus],
+          timing: labels.timing[values.timing],
+          capitalRange: labels.capitalRange[values.capitalRange],
+        },
+      });
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "No se pudo enviar la evaluación.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <section id="evaluar" className="shell py-10 md:py-14">
+      <div className="mb-6 space-y-4">
+        <span className="eyebrow">Evaluar mi plaza</span>
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl space-y-3">
+            <h2 className="section-title">Una evaluación corta para filtrar con mejor criterio.</h2>
+            <p className="section-copy">
+              En menos de 3 minutos podemos ordenar variables clave: plaza, timing,
+              capital, experiencia y nivel de involucramiento.
+            </p>
+          </div>
+          <div className="card min-w-[260px] max-w-sm bg-[linear-gradient(180deg,rgba(235,224,251,0.78),rgba(255,255,255,0.85))]">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[var(--muted)]">
+              Qué evalúa
+            </p>
+            <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--muted)]">
+              <li>Plaza y local</li>
+              <li>Timing de apertura</li>
+              <li>Rango de capital</li>
+              <li>Experiencia y rol operativo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <div className="panel p-5 md:p-7">
+          <div className="mb-6 space-y-4">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  {result ? "Evaluación enviada" : `Paso ${step} de 2`}
+                </p>
+                <p className="mt-1 text-sm text-[var(--muted)]">
+                  {result
+                    ? "Recibimos tu información y ya quedó lista para revisión comercial."
+                    : step === 1
+                      ? "Datos básicos para entender plaza, timing y viabilidad inicial."
+                      : "Contexto comercial para estimar fit operativo."}
+                </p>
+              </div>
+              {!result ? (
+                <span className="chip">
+                  {step === 1 ? "Base del negocio" : "Operación y contexto"}
+                </span>
+              ) : null}
+            </div>
+
+            <div className="space-y-2">
+              <div className="h-2 overflow-hidden rounded-full bg-black/8">
+                <div
+                  className="h-full rounded-full bg-[var(--ink)] transition-all"
+                  style={{ width: `${progressValue}%` }}
+                  role="progressbar"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={progressValue}
+                />
+              </div>
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--muted)]">
+                {progressValue}% completado
+              </p>
+            </div>
+          </div>
+
+          {result ? (
+            <div className="space-y-6">
+              <div className="card bg-[linear-gradient(180deg,rgba(217,241,236,0.82),rgba(255,255,255,0.9))]">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="chip bg-[var(--ink)] text-white">{result.score}/100</span>
+                  <span className="chip">{result.isSql ? "SQL prioritario" : "Lead en revisión"}</span>
+                </div>
+                <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+                  {result.isSql
+                    ? "Tu evaluación quedó priorizada para revisión comercial."
+                    : "Tu evaluación quedó enviada correctamente."}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted)] md:text-base">
+                  {result.message} Si el encaje es real, avanzamos con la validación de
+                  plaza y próximos pasos.
+                </p>
+                <p className="mt-3 text-sm font-semibold text-[var(--ink)]">
+                  SLA estimado: te respondemos dentro de {slaHours} hs hábiles.
+                </p>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <a
+                  href={schedulerUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button-primary"
+                >
+                  Agendar llamada
+                </a>
+                <a
+                  href={result.whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button-secondary"
+                >
+                  WhatsApp
+                </a>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <div className="card">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                    Resumen enviado
+                  </p>
+                  <dl className="mt-4 space-y-3 text-sm text-[var(--muted)]">
+                    <div>
+                      <dt className="font-semibold text-[var(--ink)]">Ciudad / provincia</dt>
+                      <dd>{result.summary.cityProvince}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-semibold text-[var(--ink)]">Plaza</dt>
+                      <dd>{result.summary.plazaStatus}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-semibold text-[var(--ink)]">Timing</dt>
+                      <dd>{result.summary.timing}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-semibold text-[var(--ink)]">Capital</dt>
+                      <dd>{result.summary.capitalRange}</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div className="card">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                    Qué sigue
+                  </p>
+                  <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
+                    <li>Revisión comercial del fit y del estado de la plaza.</li>
+                    <li>Contacto inicial para profundizar timing, metros y ubicación.</li>
+                    <li>Si hay encaje, armado del siguiente tramo de conversación.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <form className="space-y-6" onSubmit={handleSubmit} onFocusCapture={markQuizStarted}>
+              {step === 1 ? (
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="md:col-span-2">
+                    <label className="field-label" htmlFor="name">
+                      Nombre y apellido
+                    </label>
+                    <input
+                      id="name"
+                      className="field"
+                      value={values.name}
+                      onChange={(event) => updateValue("name", event.target.value)}
+                      placeholder="Tu nombre"
+                    />
+                    <FieldError message={errors.name} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="whatsapp">
+                      WhatsApp
+                    </label>
+                    <input
+                      id="whatsapp"
+                      className="field"
+                      value={values.whatsapp}
+                      onChange={(event) => updateValue("whatsapp", event.target.value)}
+                      placeholder="+54 9 11..."
+                    />
+                    <FieldError message={errors.whatsapp} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="cityProvince">
+                      Ciudad / provincia
+                    </label>
+                    <input
+                      id="cityProvince"
+                      className="field"
+                      value={values.cityProvince}
+                      onChange={(event) => updateValue("cityProvince", event.target.value)}
+                      placeholder="Ej. Rosario, Santa Fe"
+                    />
+                    <FieldError message={errors.cityProvince} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="plazaStatus">
+                      Plaza / local
+                    </label>
+                    <select
+                      id="plazaStatus"
+                      className="field"
+                      value={values.plazaStatus}
+                      onChange={(event) => updateValue("plazaStatus", event.target.value)}
+                    >
+                      {plazaOptions.map((option) => (
+                        <option key={option.value || "empty"} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError message={errors.plazaStatus} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="timing">
+                      Timing estimado
+                    </label>
+                    <select
+                      id="timing"
+                      className="field"
+                      value={values.timing}
+                      onChange={(event) => updateValue("timing", event.target.value)}
+                    >
+                      {timingOptions.map((option) => (
+                        <option key={option.value || "empty"} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError message={errors.timing} />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="field-label" htmlFor="capitalRange">
+                      Capital disponible
+                    </label>
+                    <select
+                      id="capitalRange"
+                      className="field"
+                      value={values.capitalRange}
+                      onChange={(event) => updateValue("capitalRange", event.target.value)}
+                    >
+                      {capitalOptions.map((option) => (
+                        <option key={option.value || "empty"} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="mt-2 text-sm text-[var(--muted)]">
+                      No hace falta un número exacto. Buscamos entender rango y nivel de
+                      preparación.
+                    </p>
+                    <FieldError message={errors.capitalRange} />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white/70 p-4">
+                      <input
+                        type="checkbox"
+                        checked={values.consent}
+                        onChange={(event) => updateValue("consent", event.target.checked)}
+                        className="mt-1 h-4 w-4 rounded border-black/20"
+                      />
+                      <span className="text-sm leading-6 text-[var(--muted)]">
+                        Acepto que Chimola use esta información para evaluar la consulta y
+                        contactarme sobre el proceso comercial.
+                      </span>
+                    </label>
+                    <p className="mt-2 text-sm text-[var(--muted)]">
+                      Al continuar aceptás nuestra{" "}
+                      <Link href="/privacidad" className="font-semibold text-[var(--ink)] underline">
+                        política de privacidad
+                      </Link>
+                      .
+                    </p>
+                    <FieldError message={errors.consent} />
+                  </div>
+                </div>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <label className="field-label" htmlFor="retailExperience">
+                      Experiencia retail
+                    </label>
+                    <select
+                      id="retailExperience"
+                      className="field"
+                      value={values.retailExperience}
+                      onChange={(event) => updateValue("retailExperience", event.target.value)}
+                    >
+                      {experienceOptions.map((option) => (
+                        <option key={option.value || "empty"} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError message={errors.retailExperience} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="role">
+                      Rol previsto
+                    </label>
+                    <select
+                      id="role"
+                      className="field"
+                      value={values.role}
+                      onChange={(event) => updateValue("role", event.target.value)}
+                    >
+                      {roleOptions.map((option) => (
+                        <option key={option.value || "empty"} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError message={errors.role} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="locationType">
+                      Tipo de ubicación
+                    </label>
+                    <select
+                      id="locationType"
+                      className="field"
+                      value={values.locationType}
+                      onChange={(event) => updateValue("locationType", event.target.value)}
+                    >
+                      {locationOptions.map((option) => (
+                        <option key={option.value || "empty"} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError message={errors.locationType} />
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="squareMeters">
+                      m2 estimados
+                    </label>
+                    <input
+                      id="squareMeters"
+                      className="field"
+                      inputMode="numeric"
+                      value={values.squareMeters}
+                      onChange={(event) => updateValue("squareMeters", event.target.value)}
+                      placeholder="Opcional"
+                    />
+                    <p className="mt-2 text-sm text-[var(--muted)]">
+                      Si ya lo sabés, ayuda a estimar encaje más rápido.
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="field-label" htmlFor="motivation">
+                      ¿Por qué te interesa Chimola?
+                    </label>
+                    <textarea
+                      id="motivation"
+                      className="field min-h-32 resize-y"
+                      value={values.motivation}
+                      onChange={(event) => updateValue("motivation", event.target.value)}
+                      placeholder="Contanos qué ves en tu plaza, qué timing imaginás y por qué te interesa la propuesta."
+                    />
+                    <p className="mt-2 text-sm text-[var(--muted)]">
+                      Microcopy útil: una respuesta corta y concreta mejora la lectura
+                      comercial.
+                    </p>
+                    <FieldError message={errors.motivation} />
+                  </div>
+                </div>
+              )}
+
+              {submitError ? (
+                <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                  {submitError}
+                </p>
+              ) : null}
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+                {step === 2 ? (
+                  <button
+                    type="button"
+                    className="button-secondary"
+                    onClick={() => setStep(1)}
+                    disabled={isSubmitting}
+                  >
+                    Volver al paso 1
+                  </button>
+                ) : (
+                  <div className="text-sm text-[var(--muted)]">
+                    Te lleva menos de 3 minutos y nos ayuda a responder mejor.
+                  </div>
+                )}
+
+                {step === 1 ? (
+                  <button type="button" className="button-primary" onClick={handleNextStep}>
+                    Continuar
+                  </button>
+                ) : (
+                  <button type="submit" className="button-primary" disabled={isSubmitting}>
+                    {isSubmitting ? "Enviando evaluación..." : "Enviar evaluación"}
+                  </button>
+                )}
+              </div>
+            </form>
+          )}
+        </div>
+
+        <div className="grid gap-4">
+          <div className="panel relative min-h-[320px] overflow-hidden">
+            <Image
+              src="/assets/chimola/lifestyle.jpg"
+              alt="Imagen lifestyle de Chimola con producto y color."
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent p-6 text-white">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/75">
+                Precalificación
+              </p>
+              <p className="mt-2 max-w-sm text-sm leading-6 text-white/90 md:text-base">
+                Cuanto más clara esté tu plaza, tu timing y tu capacidad operativa,
+                más rápido podemos decirte si vale la pena avanzar.
+              </p>
+            </div>
+          </div>
+
+          <div className="card bg-[linear-gradient(180deg,rgba(248,221,233,0.72),rgba(255,255,255,0.88))]">
+            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+              Qué acelera una respuesta útil
+            </p>
+            <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
+              <li>Plaza definida o local identificado.</li>
+              <li>Horizonte de apertura menor a 6 meses.</li>
+              <li>Capital ya pensado para apertura y stock inicial.</li>
+              <li>Un rol operativo o mixto durante el lanzamiento.</li>
+            </ul>
+          </div>
+
+          <div className="card bg-[linear-gradient(180deg,rgba(219,233,255,0.72),rgba(255,255,255,0.88))]">
+            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+              Qué devuelve esta herramienta
+            </p>
+            <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
+              <li>Un score preliminar de 0 a 100.</li>
+              <li>Un flag SQL para priorizar oportunidades de mayor fit.</li>
+              <li>Un payload limpio para tracking comercial y analítica.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
