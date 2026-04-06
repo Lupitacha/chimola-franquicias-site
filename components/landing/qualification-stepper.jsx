@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import { computeLeadScore, computeSqlFlag } from "@/lib/scoring";
 import { trackLeadEvent } from "@/lib/tracking";
@@ -136,6 +135,21 @@ function FieldError({ message }) {
   return <p className="field-error">{message}</p>;
 }
 
+function AsideCard({ title, items, tone }) {
+  return (
+    <div className={`card ${tone}`}>
+      <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+        {title}
+      </p>
+      <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--muted)]">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function QualificationStepper() {
   const [step, setStep] = useState(1);
   const [values, setValues] = useState(initialValues);
@@ -252,31 +266,49 @@ export function QualificationStepper() {
 
   return (
     <section id="evaluar" className="shell py-10 md:py-14">
-      <div className="mb-6 space-y-4">
-        <span className="eyebrow">Evaluar mi plaza</span>
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl space-y-3">
-            <h2 className="section-title">Una evaluación corta para filtrar con mejor criterio.</h2>
-            <p className="section-copy">
-              En menos de 3 minutos podemos ordenar variables clave: plaza, timing,
-              capital, experiencia y nivel de involucramiento.
+      <div className="panel mb-6 overflow-hidden bg-[var(--ink)] px-5 py-6 text-white md:px-8 md:py-8">
+        <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <div className="space-y-4">
+            <span className="eyebrow border-white/10 bg-white/10 text-white/70">
+              Evaluar oportunidad
+            </span>
+            <h2 className="font-display text-[2.15rem] leading-[1.02] font-semibold tracking-tight md:text-[3.25rem]">
+              Una instancia breve para validar si tiene sentido avanzar
+            </h2>
+            <p className="max-w-2xl text-base leading-7 text-white/76 md:text-lg">
+              Este primer paso ordena plaza, timing, capital y perfil operativo para
+              responder con más criterio y priorizar conversaciones comerciales reales.
             </p>
           </div>
-          <div className="card min-w-[260px] max-w-sm bg-[linear-gradient(180deg,rgba(235,224,251,0.78),rgba(255,255,255,0.85))]">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[var(--muted)]">
-              Qué evalúa
-            </p>
-            <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--muted)]">
-              <li>Plaza y local</li>
-              <li>Timing de apertura</li>
-              <li>Rango de capital</li>
-              <li>Experiencia y rol operativo</li>
-            </ul>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4">
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
+                Tiempo estimado
+              </p>
+              <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
+                3 minutos
+              </p>
+            </div>
+            <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4">
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
+                SLA estimado
+              </p>
+              <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
+                {slaHours} hs hábiles
+              </p>
+            </div>
+            <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4 sm:col-span-2">
+              <p className="text-sm leading-7 text-white/76">
+                Ideal para quienes ya tienen una plaza en mente o capacidad concreta de
+                avanzar con una conversación de negocio seria.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-6 xl:grid-cols-[1.16fr_0.84fr]">
         <div className="panel p-5 md:p-7">
           <div className="mb-6 space-y-4">
             <div className="flex items-center justify-between gap-4">
@@ -294,7 +326,7 @@ export function QualificationStepper() {
               </div>
               {!result ? (
                 <span className="chip">
-                  {step === 1 ? "Base del negocio" : "Operación y contexto"}
+                  {step === 1 ? "Plaza, timing y capital" : "Operación y contexto"}
                 </span>
               ) : null}
             </div>
@@ -318,10 +350,12 @@ export function QualificationStepper() {
 
           {result ? (
             <div className="space-y-6">
-              <div className="card bg-[linear-gradient(180deg,rgba(217,241,236,0.82),rgba(255,255,255,0.9))]">
+              <div className="card bg-[linear-gradient(180deg,rgba(217,241,236,0.82),rgba(255,255,255,0.92))]">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="chip bg-[var(--ink)] text-white">{result.score}/100</span>
-                  <span className="chip">{result.isSql ? "SQL prioritario" : "Lead en revisión"}</span>
+                  <span className="chip">
+                    {result.isSql ? "SQL prioritario" : "Lead en revisión"}
+                  </span>
                 </div>
                 <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
                   {result.isSql
@@ -385,7 +419,7 @@ export function QualificationStepper() {
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
                     Qué sigue
                   </p>
-                  <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
+                  <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--muted)]">
                     <li>Revisión comercial del fit y del estado de la plaza.</li>
                     <li>Contacto inicial para profundizar timing, metros y ubicación.</li>
                     <li>Si hay encaje, armado del siguiente tramo de conversación.</li>
@@ -501,7 +535,7 @@ export function QualificationStepper() {
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white/70 p-4">
+                    <label className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white p-4">
                       <input
                         type="checkbox"
                         checked={values.consent}
@@ -611,8 +645,7 @@ export function QualificationStepper() {
                       placeholder="Contanos qué ves en tu plaza, qué timing imaginás y por qué te interesa la propuesta."
                     />
                     <p className="mt-2 text-sm text-[var(--muted)]">
-                      Microcopy útil: una respuesta corta y concreta mejora la lectura
-                      comercial.
+                      Una respuesta concreta mejora la lectura comercial.
                     </p>
                     <FieldError message={errors.motivation} />
                   </div>
@@ -656,46 +689,37 @@ export function QualificationStepper() {
         </div>
 
         <div className="grid gap-4">
-          <div className="panel relative min-h-[320px] overflow-hidden">
-            <Image
-              src="/assets/chimola/lifestyle.jpg"
-              alt="Imagen lifestyle de Chimola con producto y color."
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent p-6 text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/75">
-                Precalificación
-              </p>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-white/90 md:text-base">
-                Cuanto más clara esté tu plaza, tu timing y tu capacidad operativa,
-                más rápido podemos decirte si vale la pena avanzar.
-              </p>
-            </div>
-          </div>
+          <AsideCard
+            title="Qué evalúa esta instancia"
+            tone="bg-[linear-gradient(180deg,rgba(245,243,255,0.86),rgba(255,255,255,0.95))]"
+            items={[
+              "Plaza y estado del local.",
+              "Timing estimado de apertura.",
+              "Rango de capital disponible.",
+              "Experiencia, rol e involucramiento.",
+            ]}
+          />
 
-          <div className="card bg-[linear-gradient(180deg,rgba(248,221,233,0.72),rgba(255,255,255,0.88))]">
-            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
-              Qué acelera una respuesta útil
-            </p>
-            <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
-              <li>Plaza definida o local identificado.</li>
-              <li>Horizonte de apertura menor a 6 meses.</li>
-              <li>Capital ya pensado para apertura y stock inicial.</li>
-              <li>Un rol operativo o mixto durante el lanzamiento.</li>
-            </ul>
-          </div>
+          <AsideCard
+            title="Qué acelera una respuesta útil"
+            tone="bg-[linear-gradient(180deg,rgba(248,221,233,0.72),rgba(255,255,255,0.9))]"
+            items={[
+              "Plaza definida o local identificado.",
+              "Horizonte de apertura menor a 6 meses.",
+              "Capital ya pensado para apertura y stock inicial.",
+              "Un rol operativo o mixto durante el lanzamiento.",
+            ]}
+          />
 
-          <div className="card bg-[linear-gradient(180deg,rgba(219,233,255,0.72),rgba(255,255,255,0.88))]">
-            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
-              Qué devuelve esta herramienta
-            </p>
-            <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
-              <li>Un score preliminar de 0 a 100.</li>
-              <li>Un flag SQL para priorizar oportunidades de mayor fit.</li>
-              <li>Un payload limpio para tracking comercial y analítica.</li>
-            </ul>
-          </div>
+          <AsideCard
+            title="Qué devuelve esta herramienta"
+            tone="bg-[linear-gradient(180deg,rgba(219,233,255,0.72),rgba(255,255,255,0.9))]"
+            items={[
+              "Un score preliminar de 0 a 100.",
+              "Un flag SQL para priorizar oportunidades de mayor fit.",
+              "Un payload limpio para seguimiento comercial y analítica.",
+            ]}
+          />
         </div>
       </div>
     </section>

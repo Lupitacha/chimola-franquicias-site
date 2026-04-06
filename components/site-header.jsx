@@ -15,14 +15,17 @@ export function SiteHeader() {
           </a>
 
           <nav className="hidden items-center gap-5 text-sm font-semibold text-[var(--muted)] md:flex">
+            <a href="#oportunidad" className="transition hover:text-[var(--ink)]">
+              Oportunidad
+            </a>
             <a href="#modelo" className="transition hover:text-[var(--ink)]">
               Modelo
             </a>
             <a href="#economia" className="transition hover:text-[var(--ink)]">
               Economía
             </a>
-            <a href="#faq" className="transition hover:text-[var(--ink)]">
-              FAQ
+            <a href="#evaluar" className="transition hover:text-[var(--ink)]">
+              Evaluar
             </a>
           </nav>
 
@@ -31,7 +34,7 @@ export function SiteHeader() {
             className="button-primary hidden md:inline-flex"
             eventParams={{ cta_name: "header_eval", cta_location: "header" }}
           >
-            Evaluar mi plaza (3 min)
+            Evaluar oportunidad
           </TrackableAnchor>
         </div>
       </div>

@@ -7,14 +7,14 @@ export default function Footer() {
             chimola
           </p>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)] md:text-base">
-            Herramienta de precalificación pensada para filtrar mejor, ordenar la
-            conversación comercial y priorizar plazas con mayor potencial.
+            Una landing pensada para ordenar la conversación comercial, filtrar mejor y
+            priorizar plazas con mayor potencial de desarrollo.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <a href="#hero" className="button-secondary">
-            Volver arriba
+          <a href="#evaluar" className="button-primary">
+            Evaluar oportunidad
           </a>
           <a href="/privacidad" className="button-secondary">
             Privacidad
