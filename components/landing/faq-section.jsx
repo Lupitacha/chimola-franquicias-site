@@ -1,21 +1,21 @@
 const faqs = [
   {
-    question: "¿Qué evalúa el score?",
+    question: "¿Qué evalúa esta instancia inicial?",
     answer:
-      "Plaza, timing, rango de capital, experiencia operativa, rol previsto y tipo de ubicación. Sirve para ordenar la conversación comercial y priorizar casos con mayor fit.",
+      "Plaza, timing, capital disponible, experiencia operativa, rol previsto y tipo de ubicación. Sirve para ordenar la conversación comercial y priorizar casos con mayor encaje.",
   },
   {
-    question: "¿Enviar la evaluación garantiza una apertura?",
+    question: "¿Completar la evaluación implica un compromiso?",
     answer:
-      "No. La evaluación sólo define si vale la pena avanzar a una conversación comercial más profunda y una validación específica de plaza y local.",
+      "No. Es una instancia breve para validar si vale la pena avanzar a una conversación comercial más profunda y a una revisión específica de plaza y local.",
   },
   {
-    question: "¿Cuándo se habla de números concretos?",
+    question: "¿Cuándo pasamos a una conversación económica?",
     answer:
-      "Una vez revisada la plaza, el tamaño estimado, el tipo de ubicación y el nivel de avance del proyecto. La página muestra referencias para filtrar, no una promesa cerrada.",
+      "Una vez revisados el tipo de plaza, el tamaño estimado, la ubicación y el estado real del proyecto. La evaluación inicial ordena primero el encaje comercial.",
   },
   {
-    question: "¿Qué pasa si todavía no tengo local identificado?",
+    question: "¿Puedo aplicar si todavía no tengo el local identificado?",
     answer:
       "Podés completar la evaluación igual. La prioridad sube cuando ya existe plaza definida o local en vista, pero el formulario también ayuda a detectar oportunidades en etapa previa.",
   },

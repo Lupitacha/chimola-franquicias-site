@@ -23,7 +23,7 @@ html {
 }
 
 section[id] {
-  scroll-margin-top: 7.5rem;
+  scroll-margin-top: 8.25rem;
 }
 
 body {
@@ -62,7 +62,7 @@ details[open] summary .faq-plus {
 
 @layer components {
   .shell {
-    @apply mx-auto w-full max-w-[1180px] px-4 md:px-6;
+    @apply mx-auto w-full max-w-[1200px] px-4 md:px-6;
   }
 
   .panel {
@@ -82,11 +82,11 @@ details[open] summary .faq-plus {
   }
 
   .section-title {
-    @apply font-display text-[2.2rem] leading-[1.02] font-semibold tracking-tight text-[var(--ink)] md:text-[3.65rem];
+    @apply font-display text-[2.35rem] leading-[1.02] font-semibold tracking-tight text-[var(--ink)] md:text-[3.85rem];
   }
 
   .section-copy {
-    @apply text-[1rem] leading-7 text-[var(--muted)] md:text-[1.08rem];
+    @apply text-[1.04rem] leading-8 text-[var(--muted)] md:text-[1.12rem];
   }
 
   .card {

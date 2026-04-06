@@ -5,9 +5,9 @@ import "./globals.css";
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata = {
-  title: "Chimola Franquicias | Evaluar mi plaza",
+  title: "Chimola Espacios Exclusivos | Evaluar mi plaza",
   description:
-    "Herramienta de precalificación para operadores interesados en desarrollar un espacio exclusivo Chimola.",
+    "Presentación institucional y evaluación inicial para operadores interesados en desarrollar un espacio exclusivo Chimola.",
 };
 
 export default function RootLayout({ children }) {

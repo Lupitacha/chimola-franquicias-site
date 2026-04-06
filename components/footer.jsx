@@ -7,14 +7,14 @@ export default function Footer() {
             chimola
           </p>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)] md:text-base">
-            Una landing pensada para ordenar la conversación comercial, filtrar mejor y
-            priorizar plazas con mayor potencial de desarrollo.
+            Una propuesta pensada para ordenar la conversación comercial, presentar el
+            modelo con claridad y priorizar plazas con potencial real de desarrollo.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-3">
           <a href="#evaluar" className="button-primary">
-            Evaluar oportunidad
+            Evaluar mi plaza
           </a>
           <a href="/privacidad" className="button-secondary">
             Privacidad

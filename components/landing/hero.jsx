@@ -2,18 +2,31 @@ import Image from "next/image";
 
 import TrackableAnchor from "@/components/trackable-anchor";
 
-const metrics = [
-  { value: "+10 años", label: "de trayectoria y construcción de marca" },
-  { value: "+80 m2", label: "de metraje sugerido más depósito" },
-  { value: "Sin regalías", label: "y fee mensual de referencia" },
+const fitGroups = [
+  {
+    title: "Esto es para vos si",
+    items: [
+      "Buscás una marca con identidad propia y no un formato genérico.",
+      "Tenés capacidad de ejecución, timing real y lectura comercial de plaza.",
+      "Querés desarrollar un espacio más ordenado que la multimarca tradicional.",
+    ],
+  },
+  {
+    title: "No es para vos si",
+    items: [
+      "Estás explorando sin foco, sin timing o sin una plaza posible en análisis.",
+      "Buscás una propuesta de entrada baja o una franquicia masiva sin criterio de marca.",
+      "Priorizás una oportunidad oportunista por encima de una construcción comercial consistente.",
+    ],
+  },
 ];
 
 export function Hero() {
   return (
     <section id="hero" className="shell pb-12 pt-6 md:pb-20 md:pt-10">
-      <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="space-y-6">
-          <span className="eyebrow">Chimola franquicias</span>
+          <span className="eyebrow">Chimola</span>
 
           <div className="space-y-4">
             <h1 className="font-display text-[2.5rem] leading-[0.98] font-semibold tracking-tight text-[var(--ink)] md:text-[4.45rem]">
@@ -43,18 +56,23 @@ export function Hero() {
             </TrackableAnchor>
           </div>
 
-          <p className="text-sm leading-7 text-[var(--muted)]">
-            Pensado para operadores con plaza evaluable, timing concreto y capacidad
-            real de ejecutar una propuesta de marca.
-          </p>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            {metrics.map((metric) => (
-              <article key={metric.value} className="card px-4 py-4">
-                <p className="font-display text-xl font-semibold tracking-tight text-[var(--ink)]">
-                  {metric.value}
+          <div className="grid gap-3 md:grid-cols-2">
+            {fitGroups.map((group) => (
+              <article
+                key={group.title}
+                className="card bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,250,246,0.98))]"
+              >
+                <p className="text-[0.76rem] font-bold uppercase tracking-[0.22em] text-[var(--muted)]">
+                  {group.title}
                 </p>
-                <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{metric.label}</p>
+                <ul className="mt-4 space-y-3 text-[0.98rem] leading-7 text-[var(--muted)]">
+                  {group.items.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--ink)]" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>

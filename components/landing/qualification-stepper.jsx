@@ -141,7 +141,7 @@ function AsideCard({ title, items, tone }) {
       <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
         {title}
       </p>
-      <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--muted)]">
+      <ul className="mt-4 space-y-3 text-[0.98rem] leading-7 text-[var(--muted)]">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -270,10 +270,10 @@ export function QualificationStepper() {
         <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <div className="space-y-4">
             <span className="eyebrow border-white/10 bg-white/10 text-white/70">
-              Evaluar oportunidad
+              Evaluar mi plaza
             </span>
             <h2 className="font-display text-[2.15rem] leading-[1.02] font-semibold tracking-tight md:text-[3.25rem]">
-              Una instancia breve para validar si tiene sentido avanzar
+              Una evaluación breve para validar encaje antes de avanzar
             </h2>
             <p className="max-w-2xl text-base leading-7 text-white/76 md:text-lg">
               Este primer paso ordena plaza, timing, capital y perfil operativo para
@@ -300,8 +300,8 @@ export function QualificationStepper() {
             </div>
             <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4 sm:col-span-2">
               <p className="text-sm leading-7 text-white/76">
-                Ideal para quienes ya tienen una plaza en mente o capacidad concreta de
-                avanzar con una conversación de negocio seria.
+                Pensado para quienes ya están evaluando una plaza o tienen capacidad
+                concreta de avanzar con una conversación de negocio seria.
               </p>
             </div>
           </div>
@@ -354,7 +354,7 @@ export function QualificationStepper() {
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="chip bg-[var(--ink)] text-white">{result.score}/100</span>
                   <span className="chip">
-                    {result.isSql ? "SQL prioritario" : "Lead en revisión"}
+                    {result.isSql ? "Revisión prioritaria" : "Revisión comercial"}
                   </span>
                 </div>
                 <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
@@ -421,7 +421,7 @@ export function QualificationStepper() {
                   </p>
                   <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--muted)]">
                     <li>Revisión comercial del fit y del estado de la plaza.</li>
-                    <li>Contacto inicial para profundizar timing, metros y ubicación.</li>
+                    <li>Contacto inicial para profundizar formato, ubicación y timing.</li>
                     <li>Si hay encaje, armado del siguiente tramo de conversación.</li>
                   </ul>
                 </div>
@@ -715,9 +715,9 @@ export function QualificationStepper() {
             title="Qué devuelve esta herramienta"
             tone="bg-[linear-gradient(180deg,rgba(219,233,255,0.72),rgba(255,255,255,0.9))]"
             items={[
-              "Un score preliminar de 0 a 100.",
-              "Un flag SQL para priorizar oportunidades de mayor fit.",
-              "Un payload limpio para seguimiento comercial y analítica.",
+              "Una lectura inicial del encaje de la oportunidad.",
+              "Priorización comercial cuando el caso está más avanzado.",
+              "Un siguiente paso claro para continuar la conversación.",
             ]}
           />
         </div>

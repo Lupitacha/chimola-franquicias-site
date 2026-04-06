@@ -4,6 +4,7 @@ import { FAQSection } from "@/components/landing/faq-section";
 import { Hero } from "@/components/landing/hero";
 import { ModelSection } from "@/components/landing/model-section";
 import { OpportunitySection } from "@/components/landing/opportunity-section";
+import { ProductLinesSection } from "@/components/landing/product-lines-section";
 import { QualificationStepper } from "@/components/landing/qualification-stepper";
 import { StoreSection } from "@/components/landing/store-section";
 import { YearRoundSection } from "@/components/landing/year-round-section";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Hero />
       <OpportunitySection />
       <ModelSection />
+      <ProductLinesSection />
       <StoreSection />
       <EconomicsSection />
       <YearRoundSection />
@@ -30,7 +32,7 @@ export default function HomePage() {
           className="button-primary w-full justify-center shadow-[0_18px_45px_rgba(20,18,32,0.26)]"
           eventParams={{ cta_name: "sticky_mobile_eval", cta_location: "mobile_footer" }}
         >
-          Evaluar oportunidad
+          Evaluar mi plaza
         </TrackableAnchor>
       </div>
     </main>
