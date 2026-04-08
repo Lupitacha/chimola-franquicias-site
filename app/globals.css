@@ -49,6 +49,14 @@ a {
   text-decoration: none;
 }
 
+a.button-primary,
+a.button-primary:visited,
+a.button-primary:hover,
+a.button-primary:focus-visible {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff;
+}
+
 button,
 input,
 select,
@@ -70,7 +78,7 @@ details[open] summary .faq-plus {
   }
 
   .button-primary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--ink)] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30;
+    @apply inline-flex min-h-12 min-w-[12rem] items-center justify-center rounded-full bg-[var(--ink)] px-7 py-3 text-sm font-bold tracking-[0.01em] text-white transition hover:-translate-y-0.5 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30;
   }
 
   .button-secondary {

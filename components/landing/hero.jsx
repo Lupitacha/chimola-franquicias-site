@@ -24,7 +24,7 @@ const fitGroups = [
 export function Hero() {
   return (
     <section id="hero" className="shell pb-12 pt-6 md:pb-20 md:pt-10">
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div className="grid gap-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
         <div className="space-y-6">
           <span className="eyebrow">Chimola</span>
 
@@ -79,15 +79,15 @@ export function Hero() {
         </div>
 
         <div className="panel overflow-hidden p-0">
-          <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-[580px]">
+          <div className="relative min-h-[400px] sm:min-h-[520px] lg:min-h-[700px]">
             <Image
-              src="/assets/chimola-curated/hero-main.jpg"
-              alt="Imagen editorial de Chimola con presencia de marca y producto."
+              src="/assets/chimola-curated/hero-img221.jpg"
+              alt="Fachada de espacio exclusivo Chimola con identidad de marca visible y propuesta comercial clara."
               fill
-              className="object-cover object-[58%_center]"
+              className="object-cover object-center"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/8 via-transparent to-transparent" />
           </div>
         </div>
       </div>
