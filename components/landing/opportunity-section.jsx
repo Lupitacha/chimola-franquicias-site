@@ -1,30 +1,30 @@
 const stats = [
   {
     value: "15+ países",
-    label: "presencia comercial",
-    body: "Una marca argentina con recorrido y lectura internacional.",
+    label: "presencia internacional",
+    body: "Una marca argentina con desarrollo local y expansión en más de 15 países.",
   },
   {
-    value: "+20 diseñadores",
-    label: "producto propio",
-    body: "Desarrollo interno pensado para el mercado argentino y su proyección.",
+    value: "+20 diseñadores in-house",
+    label: "desarrollo de producto propio",
+    body: "Pensado por y para el mercado argentino.",
   },
   {
-    value: "+15 personas",
-    label: "marketing + brand",
+    value: "Marketing + Brand",
+    label: "decisiones basadas en data",
     body: "Equipo interno para sostener identidad, comunicación y consistencia.",
   },
   {
     value: "En expansión",
-    label: "estructura de crecimiento",
-    body: "Una etapa de desarrollo que busca plazas con criterio y operadores sólidos.",
+    label: "etapa actual",
+    body: "La marca atraviesa una etapa de expansión que busca plazas con criterio y operadores sólidos.",
   },
 ];
 
 const reasons = [
-  "La oportunidad no se apoya en una sola categoría: combina producto, identidad y construcción de marca.",
-  "El formato exclusivo permite exhibir mejor, ordenar la propuesta y darle más claridad comercial a cada plaza.",
-  "La expansión busca operadores con capacidad real de ejecución y una visión compartida del modelo.",
+  "La oportunidad nace de una marca que ya tiene identidad, amplitud de categorías y desarrollo propio.",
+  "El formato exclusivo permite trabajar mejor producto, visual merchandising y experiencia de tienda.",
+  "La expansión se plantea con criterio, buscando socios que puedan sostener una propuesta de valor real.",
 ];
 
 export function OpportunitySection() {
@@ -32,25 +32,24 @@ export function OpportunitySection() {
     <section id="oportunidad" className="shell py-10 md:py-14">
       <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
         <div className="space-y-4">
-          <span className="eyebrow">Qué es Chimola hoy</span>
+          <span className="eyebrow">Una marca en expansión</span>
           <h2 className="section-title">
-            Una marca argentina con desarrollo propio, estructura interna y ambición de crecimiento
+            Una marca argentina con desarrollo propio, estructura interna y proyección internacional
           </h2>
           <p className="section-copy">
-            Chimola integra producto, marketing y brand in-house para sostener una
-            identidad consistente, desarrollar categorías y crecer con una mirada
-            comercial más estable. Esa base es la que hace posible pensar espacios
-            exclusivos con una lógica de marca, no sólo de surtido.
+            Detrás de la propuesta hay desarrollo propio, equipo interno y una visión
+            de crecimiento que permite pensar expansión con más consistencia y mejor
+            lectura comercial.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
           {stats.map((item) => (
-            <article key={item.label} className="card">
-              <p className="font-display text-[2rem] font-semibold tracking-tight text-[var(--ink)] md:text-[2.2rem]">
+            <article key={item.label} className="card h-full">
+              <p className="font-display text-[1.72rem] leading-tight font-semibold tracking-tight text-[var(--ink)] md:text-[2rem]">
                 {item.value}
               </p>
-              <p className="mt-1 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+              <p className="mt-2 text-[0.72rem] leading-5 font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
                 {item.label}
               </p>
               <p className="mt-3 text-[0.98rem] leading-7 text-[var(--muted)]">{item.body}</p>
@@ -61,7 +60,7 @@ export function OpportunitySection() {
 
       <div className="mt-6 card bg-[linear-gradient(180deg,rgba(235,224,251,0.26),rgba(255,255,255,0.96))]">
         <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[var(--muted)]">
-          Por qué esta oportunidad existe ahora
+          Por qué este modelo tiene sentido hoy
         </p>
         <ul className="mt-4 space-y-3 text-[0.98rem] leading-7 text-[var(--muted)] md:text-[1.02rem]">
           {reasons.map((item) => (

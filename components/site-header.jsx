@@ -16,19 +16,19 @@ export function SiteHeader() {
 
           <nav className="hidden items-center gap-5 text-sm font-semibold text-[var(--muted)] md:flex">
             <a href="#oportunidad" className="transition hover:text-[var(--ink)]">
-              Marca
+              Chimola
             </a>
             <a href="#modelo" className="transition hover:text-[var(--ink)]">
-              Modelo
+              Formato
             </a>
             <a href="#lineas" className="transition hover:text-[var(--ink)]">
               Producto
             </a>
             <a href="#calendario" className="transition hover:text-[var(--ink)]">
-              Calendario
+              Todo el año
             </a>
             <a href="#evaluar" className="transition hover:text-[var(--ink)]">
-              Evaluar
+              Aplicar
             </a>
           </nav>
 

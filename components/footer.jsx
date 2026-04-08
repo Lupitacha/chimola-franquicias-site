@@ -7,8 +7,8 @@ export default function Footer() {
             chimola
           </p>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)] md:text-base">
-            Una propuesta pensada para ordenar la conversación comercial, presentar el
-            modelo con claridad y priorizar plazas con potencial real de desarrollo.
+            Una propuesta pensada para presentar el modelo con claridad, ordenar la
+            conversación comercial y priorizar plazas con potencial real de desarrollo.
           </p>
         </div>
 

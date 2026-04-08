@@ -270,14 +270,14 @@ export function QualificationStepper() {
         <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <div className="space-y-4">
             <span className="eyebrow border-white/10 bg-white/10 text-white/70">
-              Evaluar mi plaza
+              Evaluación inicial
             </span>
             <h2 className="font-display text-[2.15rem] leading-[1.02] font-semibold tracking-tight md:text-[3.25rem]">
-              Una evaluación breve para validar encaje antes de avanzar
+              Un primer paso para ordenar plaza, timing y perfil del operador
             </h2>
             <p className="max-w-2xl text-base leading-7 text-white/76 md:text-lg">
-              Este primer paso ordena plaza, timing, capital y perfil operativo para
-              responder con más criterio y priorizar conversaciones comerciales reales.
+              Buscamos ordenar las primeras variables del proyecto para validar si existe
+              encaje comercial antes de avanzar a una siguiente instancia.
             </p>
           </div>
 
@@ -292,7 +292,7 @@ export function QualificationStepper() {
             </div>
             <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4">
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
-                SLA estimado
+                Próxima respuesta
               </p>
               <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
                 {slaHours} hs hábiles
@@ -300,8 +300,8 @@ export function QualificationStepper() {
             </div>
             <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4 sm:col-span-2">
               <p className="text-sm leading-7 text-white/76">
-                Pensado para quienes ya están evaluando una plaza o tienen capacidad
-                concreta de avanzar con una conversación de negocio seria.
+                Ideal para operadores que ya tienen una plaza en análisis o un proyecto
+                con intención real de desarrollo.
               </p>
             </div>
           </div>
@@ -321,7 +321,7 @@ export function QualificationStepper() {
                     ? "Recibimos tu información y ya quedó lista para revisión comercial."
                     : step === 1
                       ? "Datos básicos para entender plaza, timing y viabilidad inicial."
-                      : "Contexto comercial para estimar fit operativo."}
+                      : "Contexto comercial para estimar encaje operativo."}
                 </p>
               </div>
               {!result ? (
@@ -359,12 +359,12 @@ export function QualificationStepper() {
                 </div>
                 <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
                   {result.isSql
-                    ? "Tu evaluación quedó priorizada para revisión comercial."
-                    : "Tu evaluación quedó enviada correctamente."}
+                    ? "Tu caso quedó marcado para una revisión comercial más rápida."
+                    : "Tu caso quedó ingresado para revisión comercial."}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-[var(--muted)] md:text-base">
-                  {result.message} Si el encaje es real, avanzamos con la validación de
-                  plaza y próximos pasos.
+                  {result.message} Revisamos la información enviada y, si estamos
+                  alineados, continuamos con una conversación más concreta sobre plaza y desarrollo.
                 </p>
                 <p className="mt-3 text-sm font-semibold text-[var(--ink)]">
                   SLA estimado: te respondemos dentro de {slaHours} hs hábiles.
@@ -420,7 +420,7 @@ export function QualificationStepper() {
                     Qué sigue
                   </p>
                   <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--muted)]">
-                    <li>Revisión comercial del fit y del estado de la plaza.</li>
+                    <li>Revisión comercial del proyecto y del estado de la plaza.</li>
                     <li>Contacto inicial para profundizar formato, ubicación y timing.</li>
                     <li>Si hay encaje, armado del siguiente tramo de conversación.</li>
                   </ul>
@@ -543,12 +543,12 @@ export function QualificationStepper() {
                         className="mt-1 h-4 w-4 rounded border-black/20"
                       />
                       <span className="text-sm leading-6 text-[var(--muted)]">
-                        Acepto que Chimola use esta información para evaluar la consulta y
-                        contactarme sobre el proceso comercial.
+                        Acepto que Chimola utilice esta información para evaluar mi
+                        consulta y contactarme sobre el proceso comercial.
                       </span>
                     </label>
                     <p className="mt-2 text-sm text-[var(--muted)]">
-                      Al continuar aceptás nuestra{" "}
+                      Al enviar la evaluación aceptás nuestra{" "}
                       <Link href="/privacidad" className="font-semibold text-[var(--ink)] underline">
                         política de privacidad
                       </Link>
@@ -629,7 +629,7 @@ export function QualificationStepper() {
                       placeholder="Opcional"
                     />
                     <p className="mt-2 text-sm text-[var(--muted)]">
-                      Si ya lo sabés, ayuda a estimar encaje más rápido.
+                      Si contás con esta referencia, mejora la lectura inicial del formato.
                     </p>
                   </div>
 
@@ -645,7 +645,7 @@ export function QualificationStepper() {
                       placeholder="Contanos qué ves en tu plaza, qué timing imaginás y por qué te interesa la propuesta."
                     />
                     <p className="mt-2 text-sm text-[var(--muted)]">
-                      Una respuesta concreta mejora la lectura comercial.
+                      Una respuesta breve y concreta nos ayuda a entender mejor la oportunidad.
                     </p>
                     <FieldError message={errors.motivation} />
                   </div>
@@ -690,34 +690,34 @@ export function QualificationStepper() {
 
         <div className="grid gap-4">
           <AsideCard
-            title="Qué evalúa esta instancia"
+            title="Qué validamos primero"
             tone="bg-[linear-gradient(180deg,rgba(245,243,255,0.86),rgba(255,255,255,0.95))]"
             items={[
-              "Plaza y estado del local.",
-              "Timing estimado de apertura.",
-              "Rango de capital disponible.",
-              "Experiencia, rol e involucramiento.",
+              "Estado de plaza y ubicación.",
+              "Horizonte de apertura.",
+              "Capacidad de inversión.",
+              "Perfil operativo del proyecto.",
             ]}
           />
 
           <AsideCard
-            title="Qué acelera una respuesta útil"
+            title="Qué ayuda a avanzar más rápido"
             tone="bg-[linear-gradient(180deg,rgba(248,221,233,0.72),rgba(255,255,255,0.9))]"
             items={[
-              "Plaza definida o local identificado.",
-              "Horizonte de apertura menor a 6 meses.",
-              "Capital ya pensado para apertura y stock inicial.",
-              "Un rol operativo o mixto durante el lanzamiento.",
+              "Definición comercial de plaza.",
+              "Timing razonablemente activo.",
+              "Capacidad de ejecución.",
+              "Participación real en el desarrollo.",
             ]}
           />
 
           <AsideCard
-            title="Qué devuelve esta herramienta"
+            title="Qué pasa después"
             tone="bg-[linear-gradient(180deg,rgba(219,233,255,0.72),rgba(255,255,255,0.9))]"
             items={[
-              "Una lectura inicial del encaje de la oportunidad.",
-              "Priorización comercial cuando el caso está más avanzado.",
-              "Un siguiente paso claro para continuar la conversación.",
+              "Una primera validación del encaje comercial.",
+              "Una revisión priorizada si el proyecto está más maduro.",
+              "Una base más clara para la siguiente conversación.",
             ]}
           />
         </div>

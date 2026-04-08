@@ -2,12 +2,12 @@ import Image from "next/image";
 
 const cards = [
   {
-    title: "Marca con sistema",
-    body: "La propuesta se construye desde una identidad clara, con producto, visual y comunicación alineados.",
+    title: "Lenguaje de marca",
+    body: "El espacio expresa una identidad reconocible y ordenada, con criterio visual y comercial.",
   },
   {
-    title: "Amplitud de categorías",
-    body: "El formato articula líneas complementarias para sostener lectura comercial a lo largo del año.",
+    title: "Categorías complementarias",
+    body: "El formato articula líneas pensadas para convivir entre sí y sostener actividad durante todo el año.",
   },
   {
     title: "Modelo más ordenado",
@@ -21,20 +21,20 @@ export function ModelSection() {
       <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-center">
         <div className="space-y-5">
           <div className="space-y-4">
-            <span className="eyebrow">Qué propone el modelo</span>
+            <span className="eyebrow">El formato</span>
             <h2 className="section-title">
-              Un espacio exclusivo que reúne universo de marca, producto y experiencia comercial
+              Una propuesta comercial que integra identidad, categorías y experiencia de tienda
             </h2>
             <p className="section-copy max-w-2xl">
-              Chimola propone un formato pensado para construir una tienda con identidad
-              clara, categorías relacionadas y una lectura de negocio más fuerte desde
-              el punto de venta.
+              Un formato pensado para desarrollar una tienda con identidad clara,
+              categorías y una lectura comercial sólida desde el punto de venta, con
+              soporte permanente de la marca.
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
             {cards.map((card) => (
-              <article key={card.title} className="card">
+              <article key={card.title} className="card h-full">
                 <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--ink)]">
                   {card.title}
                 </h3>

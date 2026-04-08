@@ -4,13 +4,17 @@ export function ProductLinesSection() {
   return (
     <section id="lineas" className="shell py-10 md:py-14">
       <div className="space-y-4 max-w-3xl">
-        <span className="eyebrow">Categorías y líneas de producto</span>
+        <span className="eyebrow">Universo de producto</span>
         <h2 className="section-title">
-          Una arquitectura de líneas pensada para sostener complementariedad y lectura comercial
+          Una propuesta de producto amplia, complementaria y pensada para convivir en un mismo espacio
         </h2>
         <p className="section-copy">
-          La propuesta combina líneas pensadas para trabajar categorías complementarias
-          y sostener una oferta más clara a lo largo del calendario.
+          La amplitud de producto permite construir una tienda con más profundidad
+          comercial, mejor lectura de categorías y mayor continuidad a lo largo del calendario.
+        </p>
+        <p className="max-w-2xl text-[0.98rem] leading-7 text-[var(--muted)]">
+          No se trata de una sola categoría. Se trata de un universo de producto con
+          lógica de convivencia.
         </p>
       </div>
 

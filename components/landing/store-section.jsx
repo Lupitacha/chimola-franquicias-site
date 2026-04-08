@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 const pillars = [
-  "Lectura clara de categorías.",
-  "Visual merchandising con identidad.",
-  "Recorrido más ordenado para exhibir y vender.",
+  "Lectura clara de categorías",
+  "Visual merchandising con identidad",
+  "Un espacio diseñado para acompañar la venta",
 ];
 
 export function StoreSection() {
@@ -12,11 +12,11 @@ export function StoreSection() {
       <div className="space-y-4 max-w-3xl">
         <span className="eyebrow">Experiencia de tienda</span>
         <h2 className="section-title">
-          Un formato que potencia producto, exhibición y percepción de marca
+          Un espacio que mejora la experiencia, la lectura comercial y la percepción de marca
         </h2>
         <p className="section-copy">
-          La propuesta de tienda busca mejorar lectura, circulación y presentación para
-          reforzar la experiencia de marca y acompañar la rotación de cada temporada.
+          El espacio se diseña para ordenar categorías, mejorar exhibición y darle más
+          claridad a la propuesta desde el primer contacto.
         </p>
       </div>
 
@@ -32,7 +32,7 @@ export function StoreSection() {
 
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         {pillars.map((item) => (
-          <article key={item} className="card">
+          <article key={item} className="card h-full">
             <p className="text-[0.98rem] leading-7 text-[var(--ink)]">{item}</p>
           </article>
         ))}

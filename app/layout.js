@@ -7,7 +7,7 @@ const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 export const metadata = {
   title: "Chimola Espacios Exclusivos | Evaluar mi plaza",
   description:
-    "Presentación institucional y evaluación inicial para operadores interesados en desarrollar un espacio exclusivo Chimola.",
+    "Una propuesta comercial para operadores que buscan desarrollar un espacio exclusivo Chimola con identidad, estructura y visión de largo plazo.",
 };
 
 export default function RootLayout({ children }) {

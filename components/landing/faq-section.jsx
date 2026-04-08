@@ -2,22 +2,22 @@ const faqs = [
   {
     question: "¿Qué evalúa esta instancia inicial?",
     answer:
-      "Plaza, timing, capital disponible, experiencia operativa, rol previsto y tipo de ubicación. Sirve para ordenar la conversación comercial y priorizar casos con mayor encaje.",
+      "Evaluamos plaza, timing, capital disponible, experiencia operativa, rol previsto y tipo de ubicación para ordenar la conversación comercial y priorizar casos con mayor encaje.",
   },
   {
     question: "¿Completar la evaluación implica un compromiso?",
     answer:
-      "No. Es una instancia breve para validar si vale la pena avanzar a una conversación comercial más profunda y a una revisión específica de plaza y local.",
+      "No. Es sólo un primer filtro para entender si existe alineación antes de pasar a una siguiente instancia.",
   },
   {
     question: "¿Cuándo pasamos a una conversación económica?",
     answer:
-      "Una vez revisados el tipo de plaza, el tamaño estimado, la ubicación y el estado real del proyecto. La evaluación inicial ordena primero el encaje comercial.",
+      "Primero validamos encaje comercial; después profundizamos las variables concretas del proyecto.",
   },
   {
     question: "¿Puedo aplicar si todavía no tengo el local identificado?",
     answer:
-      "Podés completar la evaluación igual. La prioridad sube cuando ya existe plaza definida o local en vista, pero el formulario también ayuda a detectar oportunidades en etapa previa.",
+      "Sí. Tener plaza definida o local en análisis acelera la lectura, pero también podemos evaluar casos en una etapa anterior.",
   },
 ];
 
@@ -27,10 +27,9 @@ export function FAQSection() {
       <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
         <div className="space-y-4">
           <span className="eyebrow">FAQ</span>
-          <h2 className="section-title">Preguntas frecuentes antes de avanzar.</h2>
+          <h2 className="section-title">Preguntas frecuentes</h2>
           <p className="section-copy">
-            La idea es despejar dudas de entrada para que la conversación comercial
-            sea más clara y más productiva.
+            Una primera guía para ordenar expectativas y entender cómo sigue el proceso.
           </p>
         </div>
 

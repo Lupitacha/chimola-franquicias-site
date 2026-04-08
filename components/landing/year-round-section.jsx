@@ -11,11 +11,11 @@ export function YearRoundSection() {
               Trabajo comercial todo el año
             </span>
             <h2 className="font-display text-[2.15rem] leading-[1.02] font-semibold tracking-tight md:text-[3.35rem]">
-              Un calendario que permite trabajar la marca con distintos momentos de producto a lo largo del año
+              Un calendario comercial que amplía momentos de producto y oportunidades de venta
             </h2>
             <p className="max-w-2xl text-[1rem] leading-7 text-white/82 md:text-[1.08rem] md:leading-8">
-              La oportunidad no se apoya en una sola temporada. Chimola combina líneas,
-              campañas y categorías complementarias para sostener actividad comercial durante todo el calendario.
+              La propuesta integra campañas, categorías y momentos de producto que
+              permiten trabajar la marca con continuidad comercial a lo largo del año.
             </p>
           </div>
         </div>
@@ -28,6 +28,9 @@ export function YearRoundSection() {
             height={1190}
             className="w-full h-auto bg-white"
           />
+          <p className="px-5 pb-5 pt-3 text-[0.98rem] leading-7 text-[var(--muted)] md:px-8 md:pb-8">
+            La propuesta combina líneas permanentes con campañas y estacionalidades complementarias.
+          </p>
         </div>
       </div>
     </section>
