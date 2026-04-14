@@ -23,16 +23,16 @@ const fitGroups = [
 
 export function Hero() {
   return (
-    <section id="hero" className="shell pb-12 pt-6 md:pb-20 md:pt-10">
-      <div className="grid gap-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
-        <div className="space-y-6">
+    <section id="hero" className="shell pb-12 pt-6 md:pb-16 md:pt-10">
+      <div className="grid gap-7 lg:grid-cols-[0.88fr_1.12fr] lg:items-center xl:gap-10">
+        <div className="space-y-5">
           <span className="eyebrow">Chimola</span>
 
           <div className="space-y-4">
-            <h1 className="font-display text-[2.45rem] leading-[0.98] font-semibold tracking-tight text-[var(--ink)] md:text-[4.05rem] xl:text-[4.35rem]">
+            <h1 className="max-w-[11ch] font-display text-[2.28rem] leading-[0.98] font-semibold tracking-tight text-[var(--ink)] md:text-[3.6rem] xl:text-[4rem]">
               Diseño, marca y negocio en un formato comercial sólido en cualquier contexto.
             </h1>
-            <p className="section-copy max-w-xl">
+            <p className="section-copy max-w-[38rem]">
               Un formato pensado para operadores que valoran marca, exhibición y una
               propuesta más ordenada que la multimarca tradicional.
             </p>
@@ -55,16 +55,16 @@ export function Hero() {
             </TrackableAnchor>
           </div>
 
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid gap-3 md:auto-rows-fr md:grid-cols-2">
             {fitGroups.map((group) => (
               <article
                 key={group.title}
                 className="card h-full bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,250,246,0.98))]"
               >
-                <p className="text-[0.76rem] font-bold uppercase tracking-[0.22em] text-[var(--muted)]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
                   {group.title}
                 </p>
-                <ul className="mt-4 space-y-3 text-[0.98rem] leading-7 text-[var(--muted)]">
+                <ul className="mt-4 space-y-3.5 text-[0.95rem] leading-7 text-[var(--muted)]">
                   {group.items.map((item) => (
                     <li key={item} className="flex gap-3">
                       <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--ink)]" />
@@ -78,7 +78,7 @@ export function Hero() {
         </div>
 
         <div className="panel overflow-hidden p-0">
-          <div className="relative min-h-[400px] sm:min-h-[520px] lg:min-h-[700px]">
+          <div className="relative min-h-[380px] sm:min-h-[500px] lg:min-h-[640px] xl:min-h-[680px]">
             <Image
               src="/assets/chimola-curated/hero-img221.jpg"
               alt="Fachada de espacio exclusivo Chimola con identidad de marca visible y propuesta comercial clara."

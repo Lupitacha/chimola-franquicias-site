@@ -194,10 +194,10 @@ function FieldError({ message }) {
 function AsideCard({ title, items, tone }) {
   return (
     <div className={`card ${tone}`}>
-      <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+      <p className="font-display text-[1.35rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.5rem]">
         {title}
       </p>
-      <ul className="mt-4 space-y-3 text-[0.98rem] leading-7 text-[var(--muted)]">
+      <ul className="mt-4 space-y-3 text-[0.95rem] leading-7 text-[var(--muted)]">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -323,10 +323,10 @@ export function QualificationStepper() {
             <span className="eyebrow border-white/10 bg-white/10 text-white/70">
               Evaluación inicial
             </span>
-            <h2 className="font-display text-[2.15rem] leading-[1.02] font-semibold tracking-tight md:text-[3.25rem]">
+            <h2 className="max-w-[12ch] font-display text-[2.05rem] leading-[1.02] font-semibold tracking-tight md:text-[2.85rem] lg:text-[3rem]">
               Un primer paso para ordenar plaza, timing y perfil del operador
             </h2>
-            <p className="max-w-2xl text-base leading-7 text-white/76 md:text-lg">
+            <p className="max-w-2xl text-[0.98rem] leading-7 text-white/76 md:text-[1.04rem] md:leading-8">
               Buscamos ordenar las primeras variables del proyecto para validar si existe
               encaje comercial antes de avanzar a una siguiente instancia.
             </p>
@@ -337,7 +337,7 @@ export function QualificationStepper() {
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
                 Tiempo estimado
               </p>
-              <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
+              <p className="mt-2 font-display text-[1.45rem] font-semibold tracking-tight md:text-[1.6rem]">
                 3 minutos
               </p>
             </div>
@@ -345,7 +345,7 @@ export function QualificationStepper() {
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
                 Próxima respuesta
               </p>
-              <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
+              <p className="mt-2 font-display text-[1.45rem] font-semibold tracking-tight md:text-[1.6rem]">
                 {slaHours} hs hábiles
               </p>
             </div>
@@ -408,7 +408,7 @@ export function QualificationStepper() {
                     {result.isSql ? "Revisión prioritaria" : "Revisión comercial"}
                   </span>
                 </div>
-                <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+                <h3 className="mt-4 font-display text-[1.45rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.65rem]">
                   {result.isSql
                     ? "Tu caso quedó marcado para una revisión comercial más rápida."
                     : "Tu caso quedó ingresado para revisión comercial."}
@@ -445,7 +445,7 @@ export function QualificationStepper() {
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
                   Consulta directa
                 </p>
-                <h4 className="mt-3 font-display text-xl font-semibold tracking-tight text-[var(--ink)]">
+                <h4 className="mt-3 font-display text-[1.2rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.35rem]">
                   Si querés despejar dudas puntuales, podés escribirnos directo por email.
                 </h4>
                 <p className="mt-2 text-sm leading-7 text-[var(--muted)] md:text-base">
@@ -765,7 +765,7 @@ export function QualificationStepper() {
 
         <div className="grid gap-4">
           <div className="card bg-[linear-gradient(180deg,rgba(255,248,240,0.88),rgba(255,255,255,0.95))]">
-            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+            <p className="font-display text-[1.35rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.5rem]">
               Contacto directo
             </p>
             <p className="mt-4 text-[0.98rem] leading-7 text-[var(--muted)]">

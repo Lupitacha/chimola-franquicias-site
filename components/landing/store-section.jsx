@@ -9,7 +9,7 @@ const pillars = [
 export function StoreSection() {
   return (
     <section id="espacio" className="shell py-10 md:py-14">
-      <div className="space-y-4 max-w-3xl">
+      <div className="max-w-3xl space-y-4">
         <span className="eyebrow">Experiencia de tienda</span>
         <h2 className="section-title">
           Un espacio que mejora la experiencia, la lectura comercial y la percepción de marca
@@ -21,19 +21,20 @@ export function StoreSection() {
       </div>
 
       <div className="mt-8 panel overflow-hidden p-0">
-        <Image
-          src="/assets/chimola-curated/store-overview.png"
-          alt="Interior de tienda Chimola con visual merchandising ordenado y fuerte identidad de marca."
-          width={1235}
-          height={687}
-          className="w-full h-auto"
-        />
+        <div className="relative aspect-[16/10] md:aspect-[16/9]">
+          <Image
+            src="/assets/chimola-curated/store-overview.png"
+            alt="Interior de tienda Chimola con visual merchandising ordenado y fuerte identidad de marca."
+            fill
+            className="object-cover object-center"
+          />
+        </div>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
+      <div className="mt-6 grid gap-4 md:auto-rows-fr md:grid-cols-3">
         {pillars.map((item) => (
           <article key={item} className="card h-full">
-            <p className="text-[0.98rem] leading-7 text-[var(--ink)]">{item}</p>
+            <p className="text-[0.96rem] leading-7 text-[var(--ink)]">{item}</p>
           </article>
         ))}
       </div>

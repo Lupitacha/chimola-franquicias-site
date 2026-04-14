@@ -36,7 +36,7 @@ export function FAQSection() {
         <div className="space-y-3">
           {faqs.map((item) => (
             <details key={item.question} className="card group">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-semibold tracking-tight text-[var(--ink)]">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-[1.05rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.12rem]">
                 <span>{item.question}</span>
                 <span className="faq-plus inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xl transition-transform">
                   +

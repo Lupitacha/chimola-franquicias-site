@@ -20,7 +20,7 @@ const scaleCards = [
 export function EconomicsSection() {
   return (
     <section id="economia" className="shell py-10 md:py-14">
-      <div className="space-y-4 max-w-3xl">
+      <div className="max-w-3xl space-y-4">
         <span className="eyebrow">Condiciones del modelo</span>
         <h2 className="section-title">
           Una oportunidad para operadores que puedan sostener una propuesta de valor real
@@ -31,13 +31,13 @@ export function EconomicsSection() {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8 grid gap-4 md:auto-rows-fr md:grid-cols-2 xl:grid-cols-4">
         {scaleCards.map((item) => (
           <article key={item.title} className="card h-full">
-            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+            <p className="font-display text-[1.35rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.5rem]">
               {item.title}
             </p>
-            <p className="mt-3 text-[0.98rem] leading-7 text-[var(--muted)]">{item.body}</p>
+            <p className="mt-3 text-[0.95rem] leading-7 text-[var(--muted)]">{item.body}</p>
           </article>
         ))}
       </div>

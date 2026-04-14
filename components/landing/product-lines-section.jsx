@@ -3,7 +3,7 @@ import Image from "next/image";
 export function ProductLinesSection() {
   return (
     <section id="lineas" className="shell py-10 md:py-14">
-      <div className="space-y-4 max-w-3xl">
+      <div className="max-w-3xl space-y-4">
         <span className="eyebrow">Universo de producto</span>
         <h2 className="section-title">
           Una propuesta de producto amplia, complementaria y pensada para convivir en un mismo espacio
@@ -18,13 +18,13 @@ export function ProductLinesSection() {
         </p>
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-[30px] border border-black/8 bg-white shadow-[0_22px_60px_rgba(21,22,33,0.05)]">
+      <div className="panel mt-8 overflow-hidden bg-white p-3 md:p-5">
         <Image
           src="/assets/chimola-curated/pdf-page-9.png"
           alt="Líneas de producto Chimola organizadas por categorías."
           width={842}
           height={595}
-          className="w-full h-auto"
+          className="h-auto w-full rounded-[20px] border border-black/6"
         />
       </div>
     </section>
