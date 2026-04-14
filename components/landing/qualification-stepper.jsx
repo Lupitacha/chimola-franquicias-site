@@ -9,6 +9,7 @@ import { trackLeadEvent } from "@/lib/tracking";
 const formType = "evaluar_mi_plaza_stepper";
 const slaHours = 24;
 const whatsappNumber = "5491144090974";
+const contactEmail = "achaul@lautin.com.ar";
 const schedulerUrl =
   process.env.NEXT_PUBLIC_SCHEDULER_URL || "https://example.com/agendar-llamada";
 
@@ -62,6 +63,13 @@ const labels = {
   plazaStatus: Object.fromEntries(plazaOptions.map((option) => [option.value, option.label])),
   timing: Object.fromEntries(timingOptions.map((option) => [option.value, option.label])),
   capitalRange: Object.fromEntries(capitalOptions.map((option) => [option.value, option.label])),
+  retailExperience: Object.fromEntries(
+    experienceOptions.map((option) => [option.value, option.label]),
+  ),
+  role: Object.fromEntries(roleOptions.map((option) => [option.value, option.label])),
+  locationType: Object.fromEntries(
+    locationOptions.map((option) => [option.value, option.label]),
+  ),
 };
 
 const initialValues = {
@@ -125,6 +133,54 @@ function buildWhatsappUrl(values, score, isSql) {
   ].join("\n");
 
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+function buildMailtoUrl(values) {
+  const subject = `Consulta franquicias Chimola | ${values.cityProvince || "Nueva plaza"}`;
+  const body = [
+    "Hola, quiero hacer una consulta sobre Chimola Franquicias.",
+    "",
+    `Nombre: ${values.name || ""}`,
+    `WhatsApp: ${values.whatsapp || ""}`,
+    `Ciudad / provincia: ${values.cityProvince || ""}`,
+    `Plaza / local: ${labels.plazaStatus[values.plazaStatus] || ""}`,
+    `Timing: ${labels.timing[values.timing] || ""}`,
+    `Capital: ${labels.capitalRange[values.capitalRange] || ""}`,
+    "",
+    "Consulta:",
+  ].join("\n");
+
+  return `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function buildSubmissionFormData(values, score, breakdown, isSql) {
+  const formData = new FormData();
+  formData.set("_subject", `Nueva evaluación Chimola | ${values.cityProvince} | ${score}/100`);
+  formData.set("_template", "table");
+  formData.set("_captcha", "false");
+  formData.set("Nombre", values.name);
+  formData.set("WhatsApp", values.whatsapp);
+  formData.set("Ciudad / provincia", values.cityProvince);
+  formData.set("Plaza / local", labels.plazaStatus[values.plazaStatus]);
+  formData.set("Timing", labels.timing[values.timing]);
+  formData.set("Capital", labels.capitalRange[values.capitalRange]);
+  formData.set(
+    "Experiencia retail",
+    labels.retailExperience[values.retailExperience] || values.retailExperience,
+  );
+  formData.set("Rol", labels.role[values.role] || values.role);
+  formData.set(
+    "Tipo de ubicación",
+    labels.locationType[values.locationType] || values.locationType,
+  );
+  formData.set("m2 estimados", values.squareMeters || "No informado");
+  formData.set("Motivación", values.motivation);
+  formData.set("Consentimiento", values.consent ? "Sí" : "No");
+  formData.set("Score", String(score));
+  formData.set("SQL", isSql ? "Sí" : "No");
+  formData.set("Breakdown", JSON.stringify(breakdown));
+
+  return formData;
 }
 
 function FieldError({ message }) {
@@ -214,23 +270,17 @@ export function QualificationStepper() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/evaluate", {
+      const response = await fetch(`https://formsubmit.co/ajax/${contactEmail}`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify({
-          ...values,
-          score,
-          scoreBreakdown: breakdown,
-          isSql,
-          formType,
-        }),
+        body: buildSubmissionFormData(values, score, breakdown, isSql),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok || data.success === "false") {
         throw new Error(data.message || "No se pudo enviar la evaluación.");
       }
 
@@ -244,10 +294,11 @@ export function QualificationStepper() {
       });
 
       setResult({
-        message: data.message,
+        message: `Evaluación enviada a ${contactEmail}.`,
         score,
         isSql,
         whatsappUrl: buildWhatsappUrl(values, score, isSql),
+        mailtoUrl: buildMailtoUrl(values),
         summary: {
           cityProvince: values.cityProvince,
           plazaStatus: labels.plazaStatus[values.plazaStatus],
@@ -388,6 +439,30 @@ export function QualificationStepper() {
                 >
                   WhatsApp
                 </a>
+              </div>
+
+              <div className="card bg-[linear-gradient(180deg,rgba(248,221,233,0.46),rgba(255,255,255,0.96))]">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                  Consulta directa
+                </p>
+                <h4 className="mt-3 font-display text-xl font-semibold tracking-tight text-[var(--ink)]">
+                  Si querés despejar dudas puntuales, podés escribirnos directo por email.
+                </h4>
+                <p className="mt-2 text-sm leading-7 text-[var(--muted)] md:text-base">
+                  Además de la evaluación, dejamos un canal directo para consultas
+                  comerciales o seguimiento del caso.
+                </p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <a href={result.mailtoUrl} className="button-secondary">
+                    Enviar email directo
+                  </a>
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="text-sm font-semibold text-[var(--ink)] underline underline-offset-4"
+                  >
+                    {contactEmail}
+                  </a>
+                </div>
               </div>
 
               <div className="grid gap-3 md:grid-cols-2">
@@ -689,6 +764,31 @@ export function QualificationStepper() {
         </div>
 
         <div className="grid gap-4">
+          <div className="card bg-[linear-gradient(180deg,rgba(255,248,240,0.88),rgba(255,255,255,0.95))]">
+            <p className="font-display text-2xl font-semibold tracking-tight text-[var(--ink)]">
+              Contacto directo
+            </p>
+            <p className="mt-4 text-[0.98rem] leading-7 text-[var(--muted)]">
+              Si necesitás hacer una consulta puntual antes de completar la evaluación,
+              también podés escribirnos directo.
+            </p>
+            <div className="mt-4 flex flex-col gap-3">
+              <a href={`mailto:${contactEmail}`} className="button-secondary">
+                Escribir por email
+              </a>
+              <a
+                href={`mailto:${contactEmail}`}
+                className="text-sm font-semibold text-[var(--ink)] underline underline-offset-4"
+              >
+                {contactEmail}
+              </a>
+            </div>
+            <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
+              La evaluación sigue siendo la mejor vía para ordenar plaza, timing y
+              contexto del proyecto.
+            </p>
+          </div>
+
           <AsideCard
             title="Qué validamos primero"
             tone="bg-[linear-gradient(180deg,rgba(245,243,255,0.86),rgba(255,255,255,0.95))]"

@@ -13,14 +13,18 @@ export function YearRoundSection() {
             <h2 className="font-display text-[2.15rem] leading-[1.02] font-semibold tracking-tight md:text-[3.35rem]">
               Un calendario comercial que amplía momentos de producto y oportunidades de venta
             </h2>
-            <p className="max-w-2xl text-[1rem] leading-7 text-white/82 md:text-[1.08rem] md:leading-8">
-              La propuesta integra campañas, categorías y momentos de producto que
-              permiten trabajar la marca con continuidad comercial a lo largo del año.
-            </p>
           </div>
         </div>
 
         <div className="bg-white pt-[220px] md:pt-[300px] lg:pt-[340px]">
+          <div className="px-5 pb-5 md:px-8 lg:px-10">
+            <div className="-mt-3 max-w-3xl rounded-[24px] border border-black/8 bg-white/96 px-5 py-4 shadow-[0_18px_40px_rgba(21,22,33,0.08)] md:-mt-5 md:px-6 md:py-5">
+              <p className="text-[1rem] leading-7 font-medium text-[var(--ink)] md:text-[1.08rem] md:leading-8">
+                La propuesta integra campañas, categorías y momentos de producto que
+                permiten trabajar la marca con continuidad comercial a lo largo del año.
+              </p>
+            </div>
+          </div>
           <Image
             src="/assets/chimola-curated/pdf-page-11-large.png"
             alt="Calendario anual Chimola con campañas y momentos comerciales durante todo el año."
