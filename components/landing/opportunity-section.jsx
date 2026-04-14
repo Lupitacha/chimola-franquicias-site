@@ -49,20 +49,20 @@ export function OpportunitySection() {
               <p className="font-display text-[1.5rem] leading-tight font-semibold tracking-tight text-[var(--ink)] md:text-[1.82rem]">
                 {item.value}
               </p>
-              <p className="mt-2 text-[0.72rem] leading-5 font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
+              <p className="label-strong">
                 {item.label}
               </p>
-              <p className="mt-3 text-[0.95rem] leading-7 text-[var(--muted)]">{item.body}</p>
+              <p className="copy-muted-strong mt-3">{item.body}</p>
             </article>
           ))}
         </div>
       </div>
 
       <div className="mt-5 card bg-[linear-gradient(180deg,rgba(235,224,251,0.26),rgba(255,255,255,0.96))]">
-        <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[var(--muted)]">
+        <p className="label-strong">
           Por qué este modelo tiene sentido hoy
         </p>
-        <ul className="mt-4 space-y-3 text-[0.96rem] leading-7 text-[var(--muted)] md:text-[1rem]">
+        <ul className="mt-4 space-y-3 text-[0.96rem] leading-7 text-[color:rgba(22,22,33,0.76)] md:text-[1rem]">
           {reasons.map((item) => (
             <li key={item} className="flex gap-3">
               <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--ink)]" />

@@ -61,10 +61,10 @@ export function Hero() {
                 key={group.title}
                 className="card h-full bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,250,246,0.98))]"
               >
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                <p className="label-strong">
                   {group.title}
                 </p>
-                <ul className="mt-4 space-y-3.5 text-[0.95rem] leading-7 text-[var(--muted)]">
+                <ul className="mt-4 space-y-3.5 text-[0.96rem] leading-7 text-[color:rgba(22,22,33,0.76)]">
                   {group.items.map((item) => (
                     <li key={item} className="flex gap-3">
                       <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--ink)]" />

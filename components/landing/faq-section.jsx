@@ -42,7 +42,7 @@ export function FAQSection() {
                   +
                 </span>
               </summary>
-              <p className="pt-4 text-sm leading-7 text-[var(--muted)] md:text-base">
+              <p className="pt-4 text-sm leading-7 text-[color:rgba(22,22,33,0.74)] md:text-base">
                 {item.answer}
               </p>
             </details>

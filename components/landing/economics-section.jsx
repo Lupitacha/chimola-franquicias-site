@@ -37,7 +37,7 @@ export function EconomicsSection() {
             <p className="font-display text-[1.35rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.5rem]">
               {item.title}
             </p>
-            <p className="mt-3 text-[0.95rem] leading-7 text-[var(--muted)]">{item.body}</p>
+            <p className="copy-muted-strong mt-3">{item.body}</p>
           </article>
         ))}
       </div>

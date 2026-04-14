@@ -38,7 +38,7 @@ export function ModelSection() {
                 <h3 className="font-display text-[1.12rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.2rem]">
                   {card.title}
                 </h3>
-                <p className="mt-3 text-[0.95rem] leading-7 text-[var(--muted)]">
+                <p className="copy-muted-strong mt-3">
                   {card.body}
                 </p>
               </article>

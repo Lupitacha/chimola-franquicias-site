@@ -12,7 +12,7 @@ export function ProductLinesSection() {
           La amplitud de producto permite construir una tienda con más profundidad
           comercial, mejor lectura de categorías y mayor continuidad a lo largo del calendario.
         </p>
-        <p className="max-w-2xl text-[0.98rem] leading-7 text-[var(--muted)]">
+        <p className="copy-muted-strong max-w-2xl">
           No se trata de una sola categoría. Se trata de un universo de producto con
           lógica de convivencia.
         </p>

@@ -197,7 +197,7 @@ function AsideCard({ title, items, tone }) {
       <p className="font-display text-[1.35rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.5rem]">
         {title}
       </p>
-      <ul className="mt-4 space-y-3 text-[0.95rem] leading-7 text-[var(--muted)]">
+      <ul className="mt-4 space-y-3 text-[0.95rem] leading-7 text-[color:rgba(22,22,33,0.76)]">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -320,13 +320,13 @@ export function QualificationStepper() {
       <div className="panel mb-6 overflow-hidden bg-[var(--ink)] px-5 py-6 text-white md:px-8 md:py-8">
         <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <div className="space-y-4">
-            <span className="eyebrow border-white/10 bg-white/10 text-white/70">
+            <span className="eyebrow border-white/16 bg-white/12 text-white">
               Evaluación inicial
             </span>
             <h2 className="max-w-[12ch] font-display text-[2.05rem] leading-[1.02] font-semibold tracking-tight md:text-[2.85rem] lg:text-[3rem]">
               Un primer paso para ordenar plaza, timing y perfil del operador
             </h2>
-            <p className="max-w-2xl text-[0.98rem] leading-7 text-white/76 md:text-[1.04rem] md:leading-8">
+            <p className="dark-copy max-w-2xl">
               Buscamos ordenar las primeras variables del proyecto para validar si existe
               encaje comercial antes de avanzar a una siguiente instancia.
             </p>
@@ -334,7 +334,7 @@ export function QualificationStepper() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
+              <p className="dark-label">
                 Tiempo estimado
               </p>
               <p className="mt-2 font-display text-[1.45rem] font-semibold tracking-tight md:text-[1.6rem]">
@@ -342,7 +342,7 @@ export function QualificationStepper() {
               </p>
             </div>
             <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white/60">
+              <p className="dark-label">
                 Próxima respuesta
               </p>
               <p className="mt-2 font-display text-[1.45rem] font-semibold tracking-tight md:text-[1.6rem]">
@@ -350,7 +350,7 @@ export function QualificationStepper() {
               </p>
             </div>
             <div className="rounded-[22px] border border-white/10 bg-white/8 px-4 py-4 sm:col-span-2">
-              <p className="text-sm leading-7 text-white/76">
+              <p className="text-sm leading-7 text-white/86">
                 Ideal para operadores que ya tienen una plaza en análisis o un proyecto
                 con intención real de desarrollo.
               </p>
@@ -413,7 +413,7 @@ export function QualificationStepper() {
                     ? "Tu caso quedó marcado para una revisión comercial más rápida."
                     : "Tu caso quedó ingresado para revisión comercial."}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted)] md:text-base">
+                <p className="mt-3 text-sm leading-7 text-[color:rgba(22,22,33,0.74)] md:text-base">
                   {result.message} Revisamos la información enviada y, si estamos
                   alineados, continuamos con una conversación más concreta sobre plaza y desarrollo.
                 </p>
@@ -442,13 +442,13 @@ export function QualificationStepper() {
               </div>
 
               <div className="card bg-[linear-gradient(180deg,rgba(248,221,233,0.46),rgba(255,255,255,0.96))]">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                <p className="label-strong">
                   Consulta directa
                 </p>
                 <h4 className="mt-3 font-display text-[1.2rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.35rem]">
                   Si querés despejar dudas puntuales, podés escribirnos directo por email.
                 </h4>
-                <p className="mt-2 text-sm leading-7 text-[var(--muted)] md:text-base">
+                <p className="mt-2 text-sm leading-7 text-[color:rgba(22,22,33,0.74)] md:text-base">
                   Además de la evaluación, dejamos un canal directo para consultas
                   comerciales o seguimiento del caso.
                 </p>
@@ -467,10 +467,10 @@ export function QualificationStepper() {
 
               <div className="grid gap-3 md:grid-cols-2">
                 <div className="card">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                  <p className="label-strong">
                     Resumen enviado
                   </p>
-                  <dl className="mt-4 space-y-3 text-sm text-[var(--muted)]">
+                  <dl className="mt-4 space-y-3 text-sm text-[color:rgba(22,22,33,0.72)]">
                     <div>
                       <dt className="font-semibold text-[var(--ink)]">Ciudad / provincia</dt>
                       <dd>{result.summary.cityProvince}</dd>
@@ -491,10 +491,10 @@ export function QualificationStepper() {
                 </div>
 
                 <div className="card">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
+                  <p className="label-strong">
                     Qué sigue
                   </p>
-                  <ul className="mt-4 space-y-3 text-sm leading-7 text-[var(--muted)]">
+                  <ul className="mt-4 space-y-3 text-sm leading-7 text-[color:rgba(22,22,33,0.74)]">
                     <li>Revisión comercial del proyecto y del estado de la plaza.</li>
                     <li>Contacto inicial para profundizar formato, ubicación y timing.</li>
                     <li>Si hay encaje, armado del siguiente tramo de conversación.</li>
@@ -768,7 +768,7 @@ export function QualificationStepper() {
             <p className="font-display text-[1.35rem] font-semibold tracking-tight text-[var(--ink)] md:text-[1.5rem]">
               Contacto directo
             </p>
-            <p className="mt-4 text-[0.98rem] leading-7 text-[var(--muted)]">
+            <p className="copy-muted-strong mt-4">
               Si necesitás hacer una consulta puntual antes de completar la evaluación,
               también podés escribirnos directo.
             </p>
@@ -783,7 +783,7 @@ export function QualificationStepper() {
                 {contactEmail}
               </a>
             </div>
-            <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
+            <p className="mt-4 text-sm leading-6 text-[color:rgba(22,22,33,0.72)]">
               La evaluación sigue siendo la mejor vía para ordenar plaza, timing y
               contexto del proyecto.
             </p>
