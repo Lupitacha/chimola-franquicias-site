@@ -24,15 +24,15 @@ const fitGroups = [
 export function Hero() {
   return (
     <section id="hero" className="shell pb-12 pt-6 md:pb-16 md:pt-10">
-      <div className="grid gap-7 lg:grid-cols-[0.88fr_1.12fr] lg:items-center xl:gap-10">
+      <div className="grid gap-7 lg:grid-cols-[0.94fr_1.06fr] lg:items-start xl:gap-10">
         <div className="space-y-5">
           <span className="eyebrow">Chimola</span>
 
           <div className="space-y-4">
-            <h1 className="max-w-[11ch] font-display text-[2.28rem] leading-[0.98] font-semibold tracking-tight text-[var(--ink)] md:text-[3.6rem] xl:text-[4rem]">
+            <h1 className="max-w-[12.4ch] font-display text-[2.28rem] leading-[0.98] font-semibold tracking-tight text-[var(--ink)] md:text-[3.3rem] lg:text-[3.45rem] xl:text-[3.8rem]">
               Diseño, marca y negocio en un formato comercial sólido en cualquier contexto.
             </h1>
-            <p className="section-copy max-w-[38rem]">
+            <p className="section-copy max-w-[42rem]">
               Un formato pensado para operadores que valoran marca, exhibición y una
               propuesta más ordenada que la multimarca tradicional.
             </p>
@@ -77,16 +77,16 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="panel overflow-hidden p-0">
-          <div className="relative min-h-[380px] sm:min-h-[500px] lg:min-h-[640px] xl:min-h-[680px]">
+        <div className="panel overflow-hidden p-0 lg:mt-1">
+          <div className="relative min-h-[380px] sm:min-h-[500px] lg:min-h-[610px] xl:min-h-[640px]">
             <Image
               src="/assets/chimola-curated/hero-img221.jpg"
               alt="Fachada de espacio exclusivo Chimola con identidad de marca visible y propuesta comercial clara."
               fill
-              className="object-cover object-center"
+              className="object-cover object-[center_68%]"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/8 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
           </div>
         </div>
       </div>
