@@ -3,9 +3,9 @@ import Image from "next/image";
 export function YearRoundSection() {
   return (
     <section id="calendario" className="shell py-10 md:py-14">
-      <div className="max-w-3xl space-y-4">
+      <div className="mx-auto flex max-w-5xl flex-col items-center space-y-4 text-center">
         <span className="eyebrow">Trabajo comercial todo el año</span>
-        <h2 className="section-title max-w-[14ch]">
+        <h2 className="section-title max-w-[14ch] text-center">
           Un calendario comercial que amplía momentos de producto y oportunidades de venta
         </h2>
       </div>
